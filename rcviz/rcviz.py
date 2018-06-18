@@ -60,16 +60,16 @@ class callgraph(object):
 		g.graph_attr['label']='nodes=%s' % len(callgraph._callers)
 
 		# create nodes
-		for frame_id, node in callgraph._callers.iteritems():
+		for frame_id, node in callgraph._callers.items():
 
 			auxstr = ""
-			for param, val in node.auxdata.iteritems():
-				auxstr += " | %s: %s" % (param, val) 
+			for param, val in node.auxdata.items():
+				auxstr += " | %s: %s" % (param, val)
 
 			if not show_null_returns and node.ret is None:
 				label= "{ %s(%s) %s }" % (node.fn_name, node.argstr(), auxstr)
 			else:
-				label= "{ %s(%s) %s | ret: %s }" % (node.fn_name, node.argstr(), auxstr, node.ret)
+				label= "{ %s(%s) %s | return: %s }" % (node.fn_name, node.argstr(), auxstr, node.ret)
 			g.add_node( frame_id, shape='Mrecord', label=label, fontsize=13, labelfontsize=13)
 
 		# edge colors
@@ -77,11 +77,11 @@ class callgraph(object):
 		cur_color = 0
 
 		# create edges
-		for frame_id, node in callgraph._callers.iteritems():
+		for frame_id, node in callgraph._callers.items():
 			child_nodes = []
 			for child_id, counter, unwind_counter in node.child_methods:
 				child_nodes.append(child_id)
-				cur_color = step * counter
+				cur_color = int(step * counter)
 				color = "#%2x%2x%2x" % (cur_color, cur_color, cur_color)
 				label = "%s (&uArr;%s)" % (counter, unwind_counter)
 				g.add_edge( frame_id, child_id, label=label, color= color, fontsize=8, labelfontsize=8, fontcolor="#999999" )
@@ -102,7 +102,7 @@ class callgraph(object):
 
 		g.draw(path=filename, prog='dot')
 
-		print "callviz: rendered to %s" % filename
+		print("callviz: rendered to %s" % filename)
 
 class node_data(object):
 
