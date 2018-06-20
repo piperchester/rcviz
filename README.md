@@ -53,11 +53,16 @@ Note:
 
 *Experimental*
 
-Show intermediate values of local variables in the output render by invoking decoratedfunction.track(param1=val1, param2=val2,...). In the quicksort example above you can track the pivot with:
+Show intermediate values of local variables in the output render by invoking 
+```python
+decoratedfunction.track(param1=val1, param2=val2,...)
+``` 
+
+In the quicksort example above you can track the pivot with:
 
 ```python
-	pivot = items[0]
-	quicksort.track(the_pivot=pivot) # shows a new row labelled the_pivot in each node
+pivot = items[0]
+quicksort.track(the_pivot=pivot) # shows a new row labeled 'the_pivot' in each node
 ```
 
 Setup script by [adampetrovic](https://github.com/adampetrovic).
